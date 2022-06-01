@@ -2,8 +2,16 @@ import React from "react";
 
 // Import Components
 import UserItem from "./UserItem";
+import Spinner from "../layout/Spinner";
 
-const Users = ({ users }) => {
+const Users = ({ users, loading }) => {
+
+  if(loading) {
+    return <Spinner />
+  } else {
+
+  }
+
   return (
     <div style={userStyle}>
       {users.map((user) => (
