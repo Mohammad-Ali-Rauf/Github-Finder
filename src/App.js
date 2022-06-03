@@ -19,6 +19,7 @@ const App = () => {
   // States
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
+  const [repos, setRepos] = useState([]);
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +28,13 @@ const App = () => {
     setLoading(true);
     const res = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
     setUser(res.data);
+    setLoading(false);
+  };
+
+  const getUserRepos = async (username) => {
+    setLoading(true);
+    const res = await axios.get(`https://api.github.com/users/${username}/repos?per_page=8&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    setRepos(res.data);
     setLoading(false);
   };
 
@@ -75,7 +83,7 @@ const App = () => {
             <Route
               exact
               path='/user/:loginParam'
-              element={<User user={user} loading={loading} getUser={getUser} />}
+              element={<User user={user} loading={loading} getUser={getUser} repos={repos} getUserRepos={getUserRepos} />}
             />
           </Routes>
         </div>

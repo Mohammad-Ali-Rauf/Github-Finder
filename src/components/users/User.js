@@ -2,15 +2,19 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, useParams } from 'react-router-dom';
 
+// Import Components
+import Repos from '../repos/Repos';
+
 const User = (props) => {
 
-    const { user, getUser, loading } = props;
+    const { user, repos, getUser, getUserRepos } = props;
 
     let { loginParam } = useParams();
 
     useEffect(() => {
         getUser(loginParam);
-    }, [getUser, loginParam])
+        getUserRepos(loginParam);
+    }, [getUser, getUserRepos, loginParam])
 
     const { name, company, avatar_url, location, bio, blog, login, html_url, followers, following, public_repos, public_gists, hireable  } = user;
 
@@ -67,14 +71,20 @@ const User = (props) => {
                 <div className="badge badge-light">Public Repos: {public_repos}</div>
                 <div className="badge badge-dark">Public Gists: {public_gists}</div>
             </div>
+            <div className="card text-center">
+                <h2 className='text-primary'>Latest Repositories</h2>
+            </div>
+            <Repos repos={repos} />
         </Fragment>
     )
 }
 
 User.propTypes = {
     user: PropTypes.object.isRequired,
-    getUser: PropTypes.func.isRequired,
+    repos: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
+    getUser: PropTypes.func.isRequired,
+    getUserRepos: PropTypes.func.isRequired,
 }
 
 export default User
