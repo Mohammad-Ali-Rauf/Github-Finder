@@ -1,20 +1,23 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 
 // Import Components
 import Repos from '../repos/Repos';
+import GithubContext from '../../context/github/githubContext';
 
-const User = (props) => {
+const User = () => {
 
-    const { user, repos, getUser, getUserRepos } = props;
+    const githubContext = useContext(GithubContext);
+
+    const { getUser, getRepos, repos, user } = githubContext;
 
     let { loginParam } = useParams();
 
     useEffect(() => {
         getUser(loginParam);
-        getUserRepos(loginParam);
-    }, [getUser, getUserRepos, loginParam])
+        getRepos(loginParam);
+        // eslint-disable-next-line
+    }, [])
 
     const { name, company, avatar_url, location, bio, blog, login, html_url, followers, following, public_repos, public_gists, hireable  } = user;
 
@@ -77,14 +80,6 @@ const User = (props) => {
             <Repos repos={repos} />
         </Fragment>
     )
-}
-
-User.propTypes = {
-    user: PropTypes.object.isRequired,
-    repos: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired,
-    getUser: PropTypes.func.isRequired,
-    getUserRepos: PropTypes.func.isRequired,
 }
 
 export default User

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 const UserItem = ({ user: { login, avatar_url } }) => {
@@ -15,10 +14,6 @@ const UserItem = ({ user: { login, avatar_url } }) => {
       <NavLink to={`/user/${login}`} className='btn btn-dark btn-sm my-1'>Profile</NavLink>
     </div>
   );
-};
-
-UserItem.propTypes = {
-  user: PropTypes.object.isRequired,
 };
 
 export default UserItem;
