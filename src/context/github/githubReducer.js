@@ -1,6 +1,7 @@
 // Import Types
 import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USER, GET_REPOS, SET_ALERT } from '../types';
 
+// eslint-disable-next-line
 export default (state, action) => {
     switch (action.type) {
         case SET_LOADING:
